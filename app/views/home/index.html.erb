@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wordle Wizard</title>
+  
+  <!-- Import Work Sans from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Work Sans', sans-serif;
+    }
+
+    body {
+      font-family: 'Work Sans', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      margin: 0;
+      background-color: #e5e3e6; /* Equivalent to bg-gray-50 */
+      color: black;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: transparent;
+      color: white;
+      position: absolute;
+      width: 100%;
+      box-sizing: border-box;
+      top: 0;
+      z-index: 2;
+    }
+
+    nav a {
+      margin: 0 15px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .cta {
+      background: white;
+      color: #6366f1; /* A nice indigo color */
+      padding: 10px 20px;
+      border-radius: 9999px; /* Equivalent to rounded-full */
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .angled-hero {
+      background: linear-gradient(120deg, #c084fc, #fcd34d, #60a5fa, #a78bfa);
+      background-size: 400% 400%;
+      animation: gradientBG 5s ease infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+      padding: 220px 40px 200px;
+      position: relative;
+      text-align: left; 
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .headline {
+      font-size: 90px;
+      font-weight: 500;
+      line-height: 1.2;
+      color: black;
+      max-width: 600px; /* Conservative width to ensure 3 lines */
+    }
+
+    .main {
+      display: flex;
+      flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 50px 40px;
+      color: black;
+      gap: 40px; /* Add some space between the items when they wrap */
+    }
+
+    .description-container {
+      flex: 1; /* Allow this container to grow */
+      min-width: 300px; /* Prevent it from getting too small */
+    }
+
+    .description {
+      max-width: 500px;
+      font-size: 24px;
+      color: #374151; /* Equivalent to text-gray-700 */
+      margin-top: 20px;
+    }
+
+    /* --- NEW STYLES for the image --- */
+    .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0; /* Prevents the image container from shrinking */
+        width: 100%;
+        max-width: 350px;
+        position: relative;
+    }
+
+    .hero-image-container,
+    .hero-image-section {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-image,
+    .hero-image-section img {
+      transition: transform 0.4s cubic-bezier(.4,2,.6,1), filter 0.4s;
+    }
+    .hero-image-container:hover .hero-image,
+    .hero-image-section:hover img {
+      transform: scale(1.04);
+      filter: brightness(1.08);
+    }
+    .hero-image-overlay {
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    .hero-image-section:hover .hero-image-overlay {
+      background: rgba(99, 102, 241, 0.25);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.15);
+    }
+
+    .product-image {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Responsive adjustments to prevent overlap */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+      }
+      
+      nav {
+        display: none;
+      }
+      
+      .angled-hero {
+        padding: 150px 20px 120px;
+        clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+      }
+      .headline {
+        font-size: 60px;
+      }
+      .main {
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+      }
+      .image-container {
+        order: -1; /* Move the image above the description on mobile */
+      }
+
+      /* Prevent overlap on tablets */
+      .fixed-header.centered {
+        font-size: 16px;
+        padding: 6px 12px;
+        top: 15px;
+        max-width: 200px;
+      }
+
+      .fixed-credit {
+        font-size: 14px;
+        padding: 6px 12px;
+        top: 15px;
+        right: 15px;
+        max-width: 150px;
+      }
+    }
+
+    /* Small screens */
+    @media (max-width: 600px) {
+      .fixed-header.centered {
+        font-size: 14px;
+        padding: 5px 10px;
+        top: 10px;
+        max-width: 180px;
+      }
+
+      .fixed-credit {
+        font-size: 12px;
+        padding: 5px 10px;
+        top: 10px;
+        right: 10px;
+        max-width: 120px;
+      }
+    }
+
+    /* Extra small screens */
+    @media (max-width: 480px) {
+      .fixed-header.centered {
+        font-size: 12px;
+        padding: 4px 8px;
+        top: 8px;
+        max-width: 150px;
+      }
+
+      .fixed-credit {
+        font-size: 10px;
+        padding: 4px 8px;
+        top: 8px;
+        right: 8px;
+        max-width: 100px;
+      }
+
+      .nav-toggle {
+        top: 8px;
+        left: 8px;
+        width: 32px;
+        height: 32px;
+      }
+
+      .nav-toggle span {
+        width: 14px;
+        height: 1.5px;
+      }
+    }
+
+    /* Very small screens */
+    @media (max-width: 360px) {
+      .fixed-header.centered {
+        font-size: 11px;
+        padding: 3px 6px;
+        top: 5px;
+        max-width: 130px;
+      }
+
+      .fixed-credit {
+        font-size: 9px;
+        padding: 3px 6px;
+        top: 5px;
+        right: 5px;
+        max-width: 90px;
+      }
+    }
+
+    /* Tablet adjustments - ensure headline fits in 3 lines */
+    @media (min-width: 769px) and (max-width: 1023px) {
+      .headline {
+        font-size: 70px; /* Larger font size for tablets */
+        max-width: 700px; /* Conservative width to ensure 3 lines */
+      }
+    }
+
+    /* Large screen adjustments - image to the right of text */
+    @media (min-width: 1024px) {
+      .angled-hero {
+        flex-direction: row; /* Text on left, image on right */
+      }
+      .hero-image-container {
+        display: flex; /* Show the hero image on large screens */
+      }
+      .headline {
+        font-size: 85px; /* Larger font size on large screens */
+        max-width: 800px; /* Conservative width to ensure 3 lines */
+      }
+      .image-container {
+        display: none; /* Hide the lower image on large screens */
+      }
+      .main {
+        flex-direction: column; /* Stack description vertically since no image */
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        padding: 60px 40px;
+      }
+      .description-container {
+        order: 0; /* Reset order */
+        flex: 1;
+        max-width: none;
+        text-align: center;
+        padding: 0 60px;
+      }
+      .description {
+        max-width: none;
+        font-size: 24px;
+        line-height: 1.6;
+        color: #374151;
+        margin-top: 20px;
+        margin-bottom: 30px;
+      }
+    }
+
+    /* Extra large screens - even bigger description */
+    @media (min-width: 1440px) {
+      .description {
+        font-size: 28px;
+        line-height: 1.7;
+        margin-top: 25px;
+        margin-bottom: 35px;
+      }
+
+      .main {
+        padding: 70px 60px;
+      }
+    }
+
+    /* Ultra wide screens - maximum size */
+    @media (min-width: 1920px) {
+      .description {
+        font-size: 32px;
+        line-height: 1.8;
+        margin-top: 30px;
+        margin-bottom: 40px;
+      }
+
+      .main {
+        padding: 80px 80px;
+      }
+    }
+
+    /* Credit styling */
+    .credit {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #6366f1;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      transition: 
+        background 0.3s,
+        color 0.3s,
+        box-shadow 0.3s,
+        transform 0.3s,
+        letter-spacing 0.3s;
+      cursor: pointer;
+    }
+
+    .credit:hover {
+      background: linear-gradient(90deg, #6366f1 0%, #ffd700 100%);
+      color: #fff;
+      transform: scale(1.08) rotate(-2deg);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.25), 0 2px 8px rgba(0,0,0,0.12);
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px rgba(99,102,241,0.15);
+    }
+
+    /* Hide credit on very small screens */
+    @media (max-width: 480px) {
+      .credit {
+        display: none;
+      }
+    }
+
+    .site-title.boxed-title {
+      background: rgba(255, 255, 255, 0.9);
+      color: #6366f1;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 22px;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      transition:
+        background 0.3s,
+        color 0.3s,
+        box-shadow 0.3s,
+        transform 0.3s,
+        letter-spacing 0.3s;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .site-title.boxed-title:hover,
+    .site-title.boxed-title:focus {
+      background: linear-gradient(90deg, #6366f1 0%, #ffd700 100%);
+      color: #fff !important;
+      transform: scale(1.08) rotate(-2deg);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.25), 0 2px 8px rgba(0,0,0,0.12);
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px rgba(99,102,241,0.15);
+      outline: none;
+    }
+
+    /* Standardized boxed title styling for both elements */
+    .boxed-title {
+      background: rgba(255, 255, 255, 0.9);
+      color: #6366f1;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'Work Sans', sans-serif;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      transition:
+        background 0.3s,
+        color 0.3s,
+        box-shadow 0.3s,
+        transform 0.3s,
+        letter-spacing 0.3s;
+      cursor: pointer;
+      display: inline-block;
+      line-height: 1.2;
+    }
+
+    .boxed-title:hover,
+    .boxed-title:focus {
+      background: linear-gradient(90deg, #6366f1 0%, #ffd700 100%);
+      color: #fff !important;
+      transform: scale(1.08) rotate(-2deg);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.25), 0 2px 8px rgba(0,0,0,0.12);
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px rgba(99,102,241,0.15);
+      outline: none;
+    }
+
+    .fixed-header.centered {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'Work Sans', sans-serif;
+      background: rgba(255, 255, 255, 0.9);
+      color: #6366f1;
+      border-radius: 20px;
+      padding: 8px 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      transition:
+        background 0.3s,
+        color 0.3s,
+        box-shadow 0.3s,
+        transform 0.3s,
+        letter-spacing 0.3s;
+      cursor: pointer;
+      display: inline-block;
+      line-height: 1.2;
+    }
+
+    .fixed-header.centered:hover,
+    .fixed-header.centered:focus {
+      background: linear-gradient(90deg, #6366f1 0%, #ffd700 100%);
+      color: #fff !important;
+      transform: translateX(-50%) scale(1.08) rotate(-2deg);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.25), 0 2px 8px rgba(0,0,0,0.12);
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px rgba(99,102,241,0.15);
+      outline: none;
+    }
+
+    .fixed-credit {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    /* Adjust main content to account for fixed header */
+    .angled-hero {
+      padding-top: 100px;
+    }
+
+    .faq-title {
+      text-align: center;
+      font-size: 48px;
+      font-weight: 600;
+      font-family: 'Work Sans', sans-serif;
+      color: #1e293b;
+      margin-bottom: 60px;
+    }
+
+    .faq-question {
+      font-size: 20px;
+      font-weight: 600;
+      font-family: 'Work Sans', sans-serif;
+      color: #1e293b;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+
+    .faq-answer {
+      font-size: 16px;
+      font-family: 'Work Sans', sans-serif;
+      color: #64748b;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .nav-toggle {
+      position: fixed;
+      left: 20px;
+      top: 20px;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1001;
+      transition: all 0.3s ease;
+    }
+
+    /* Remove all side navigation styles */
+    /* Adjust main content - remove side nav padding */
+    .angled-hero {
+      padding-top: 100px;
+    }
+
+    .main {
+      padding: 50px 40px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="site-title boxed-title fixed-header centered"><a href="/" style="text-decoration: none; color: inherit;"><strong>Wordle Wizard</strong></a></div>
+    <nav>
+      <a href="#">TEST</a>
+      <a href="#">TEST</a>
+      <a href="#">TEST</a>
+      <a href="#">TEST</a>
+      <a href="#" class="cta">TEST</a>
+      <a href="faq.html" class="cta">FAQ</a>
+    </nav>
+    <div class="credit boxed-title fixed-credit">Made by Ryan Quinn</div>
+  </header>
+
+  <section class="angled-hero">
+    <div class="headline">
+      Solve Wordle with <br>
+      <span style="background: linear-gradient(120deg, #ffd700 0%, #ffed4e 100%); padding: 0 8px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">machine learning</span>, <br>
+      not guesses
+    </div>
+    
+    <!-- Hero image that appears on large screens -->
+    <div class="hero-image-container">
+      <img src="https://www.cnet.com/a/img/resize/87fafb799e68b9af73dac467c3ea56f20c660599/hub/2024/05/28/20480816-214e-4fcc-a9b4-b02f0ac71e7c/wordle-word-game-hints-puzzle-8667.jpg?auto=webp&fit=crop&height=900&width=1200" alt="Wordle puzzle" class="hero-image" 
+      onerror="this.onerror=null;this.src='https://placehold.co/400x300/e0e0e0/333?text=Image+Not+Found';"/>
+      <div class="hero-image-overlay">
+        <a href="/solver" class="hero-image-button">Try the Solver</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="main">
+    <div class="description-container">
+      <p class="description">
+        Harness the power of machine learning with Wordle Wizard to consistently master Wordle. Our model, trained on millions of Wordle games, finds the correct word in the fewest guesses possible.
+      </p>
+    </div>
+
+    <!-- --- REPLACEMENT --- The payment box is replaced with this image container -->
+    <div class="image-container">
+      <img src="https://www.cnet.com/a/img/resize/87fafb799e68b9af73dac467c3ea56f20c660599/hub/2024/05/28/20480816-214e-4fcc-a9b4-b02f0ac71e7c/wordle-word-game-hints-puzzle-8667.jpg?auto=webp&fit=crop&height=900&width=1200" alt="Wordle puzzle" class="product-image" 
+      onerror="this.onerror=null;this.src='https://placehold.co/350x580/e0e0e0/333?text=Image+Not+Found';"/>
+      <div class="image-overlay">
+        <a href="/solver" class="image-button">Try the Solver</a>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html> 

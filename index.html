@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wordle Wizard</title>
+  
+  <!-- Import Work Sans from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Work Sans', sans-serif;
+    }
+
+    body {
+      font-family: 'Work Sans', sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: transparent;
+      color: white;
+      position: absolute;
+      width: 100%;
+      box-sizing: border-box;
+      top: 0;
+      z-index: 2;
+    }
+
+    nav a {
+      margin: 0 15px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .cta {
+      background: white;
+      color: #6366f1; /* A nice indigo color */
+      padding: 16px 32px;
+      border-radius: 9999px; /* Equivalent to rounded-full */
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .angled-hero {
+      background: linear-gradient(120deg, #c084fc, #fcd34d, #60a5fa, #a78bfa);
+      background-size: 400% 400%;
+      animation: gradientBG 5s ease infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+      padding: 220px 40px 200px;
+      position: relative;
+      text-align: left; 
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-text-section {
+      flex: 1;
+    }
+
+    .hero-image-section {
+      flex: 1;
+      display: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-image-section img {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      transition: transform 0.4s cubic-bezier(.4,2,.6,1), filter 0.4s;
+    }
+
+    .hero-image-section:hover img {
+      transform: scale(1.04);
+      filter: brightness(1.08);
+    }
+
+    .hero-image-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+
+    .hero-image-section:hover .hero-image-overlay {
+      background: rgba(99, 102, 241, 0.25);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.15);
+    }
+
+    .hero-image-overlay-text {
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.9);
+      color: #6366f1;
+      padding: 12px 24px;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .headline {
+      font-size: 75px;
+      font-weight: 500;
+      line-height: 1.2;
+      color: black;
+    }
+
+    .main {
+      display: flex;
+      flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 50px 40px;
+      color: black;
+      gap: 40px; /* Add some space between the items when they wrap */
+    }
+
+    .description-container {
+      flex: 1; /* Allow this container to grow */
+      min-width: 300px; /* Prevent it from getting too small */
+    }
+
+    .description {
+      max-width: 500px;
+      font-size: 18px;
+      color: #374151; /* Equivalent to text-gray-700 */
+      margin-top: 20px;
+    }
+
+    /* --- NEW STYLES for the image --- */
+    .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0; /* Prevents the image container from shrinking */
+        width: 100%;
+        max-width: 350px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .product-image {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        transition: transform 0.4s cubic-bezier(.4,2,.6,1), filter 0.4s;
+    }
+
+    .image-container:hover .product-image {
+      transform: scale(1.04);
+      filter: brightness(1.08);
+    }
+
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.4s, box-shadow 0.4s;
+    }
+
+    .image-container:hover .image-overlay {
+      background: rgba(99, 102, 241, 0.25);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.15);
+    }
+
+    .image-overlay-text {
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        background: rgba(255, 255, 255, 0.9);
+        color: #6366f1;
+        padding: 12px 24px;
+        border-radius: 8px;
+        backdrop-filter: blur(10px);
+    }
+    
+    /* Responsive adjustments to prevent overlap */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .mobile-nav {
+        display: block;
+      }
+      .angled-hero {
+        padding: 150px 20px 120px;
+        clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+      }
+      .headline {
+        font-size: 48px;
+      }
+      .main {
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 20px;
+      }
+      .image-container {
+        order: -1; /* Move the image above the description on mobile */
+      }
+
+      /* Prevent overlap on tablets */
+      .fixed-header.centered {
+        font-size: 16px;
+        padding: 6px 12px;
+        top: 15px;
+        max-width: 200px;
+      }
+
+      .fixed-credit {
+        font-size: 14px;
+        padding: 6px 12px;
+        top: 15px;
+        right: 15px;
+        max-width: 150px;
+      }
+    }
+
+    /* Small screens */
+    @media (max-width: 600px) {
+      .fixed-header.centered {
+        font-size: 14px;
+        padding: 5px 10px;
+        top: 10px;
+        max-width: 180px;
+      }
+
+      .fixed-credit {
+        font-size: 12px;
+        padding: 5px 10px;
+        top: 10px;
+        right: 10px;
+        max-width: 120px;
+      }
+    }
+
+    /* Extra small screens */
+    @media (max-width: 480px) {
+      .fixed-header.centered {
+        font-size: 12px;
+        padding: 4px 8px;
+        top: 8px;
+        max-width: 150px;
+      }
+
+      .fixed-credit {
+        font-size: 10px;
+        padding: 4px 8px;
+        top: 8px;
+        right: 8px;
+        max-width: 100px;
+      }
+
+      .nav-toggle {
+        top: 8px;
+        left: 8px;
+        width: 32px;
+        height: 32px;
+      }
+
+      .nav-toggle span {
+        width: 14px;
+        height: 1.5px;
+      }
+    }
+
+    /* Very small screens */
+    @media (max-width: 360px) {
+      .fixed-header.centered {
+        font-size: 11px;
+        padding: 3px 6px;
+        top: 5px;
+        max-width: 130px;
+      }
+
+      .fixed-credit {
+        font-size: 9px;
+        padding: 3px 6px;
+        top: 5px;
+        right: 5px;
+        max-width: 90px;
+      }
+    }
+
+    .mobile-nav {
+      display: none;
+    }
+
+    /* Show hero image on large screens */
+    @media (min-width: 1024px) {
+      .hero-image-section {
+        display: block;
+      }
+      
+      .image-container {
+        display: none;
+      }
+
+      .description-container {
+        flex: 1;
+        max-width: none;
+        text-align: center;
+        padding: 0 60px;
+      }
+
+      .description {
+        max-width: none;
+        font-size: 24px;
+        line-height: 1.6;
+        color: #374151;
+        margin-top: 20px;
+        margin-bottom: 30px;
+      }
+
+      .main {
+        justify-content: center;
+        align-items: center;
+        padding: 60px 40px;
+      }
+    }
+
+    /* Extra large screens - even bigger description */
+    @media (min-width: 1440px) {
+      .description {
+        font-size: 28px;
+        line-height: 1.7;
+        margin-top: 25px;
+        margin-bottom: 35px;
+      }
+
+      .main {
+        padding: 70px 60px;
+      }
+    }
+
+    /* Ultra wide screens - maximum size */
+    @media (min-width: 1920px) {
+      .description {
+        font-size: 32px;
+        line-height: 1.8;
+        margin-top: 30px;
+        margin-bottom: 40px;
+      }
+
+      .main {
+        padding: 80px 80px;
+      }
+    }
+
+    /* Hide main section button on smaller screens */
+    @media (max-width: 1023px) {
+      .main-cta-button {
+        display: none;
+      }
+    }
+
+    /* Credit styling */
+    .credit {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #6366f1; /* match Wordle Wizard color */
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      transition: 
+        background 0.3s,
+        color 0.3s,
+        box-shadow 0.3s,
+        transform 0.3s,
+        letter-spacing 0.3s;
+      cursor: pointer;
+    }
+
+    .credit:hover {
+      background: linear-gradient(90deg, #6366f1 0%, #ffd700 100%);
+      color: #fff;
+      transform: scale(1.08) rotate(-2deg);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.25), 0 2px 8px rgba(0,0,0,0.12);
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px rgba(99,102,241,0.15);
+    }
+
+    /* Hide credit on very small screens */
+    @media (max-width: 480px) {
+      .credit {
+        display: none;
+      }
+    }
+
+    .site-title.boxed-title {
+      background: rgba(255, 255, 255, 0.9);
+      color: #6366f1;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 22px;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      transition:
+        background 0.3s,
+        color 0.3s,
+        box-shadow 0.3s,
+        transform 0.3s,
+        letter-spacing 0.3s;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .site-title.boxed-title:hover,
+    .site-title.boxed-title:focus {
+      background: linear-gradient(90deg, #6366f1 0%, #ffd700 100%);
+      color: #fff !important;
+      transform: scale(1.08) rotate(-2deg);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.25), 0 2px 8px rgba(0,0,0,0.12);
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px rgba(99,102,241,0.15);
+      outline: none;
+    }
+
+    /* Standardized boxed title styling for both elements */
+    .boxed-title {
+      background: rgba(255, 255, 255, 0.9);
+      color: #6366f1;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'Work Sans', sans-serif;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      transition:
+        background 0.3s,
+        color 0.3s,
+        box-shadow 0.3s,
+        transform 0.3s,
+        letter-spacing 0.3s;
+      cursor: pointer;
+      display: inline-block;
+      line-height: 1.2;
+    }
+
+    .boxed-title:hover,
+    .boxed-title:focus {
+      background: linear-gradient(90deg, #6366f1 0%, #ffd700 100%);
+      color: #fff !important;
+      transform: scale(1.08) rotate(-2deg);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.25), 0 2px 8px rgba(0,0,0,0.12);
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px rgba(99,102,241,0.15);
+      outline: none;
+    }
+
+    .fixed-header.centered {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'Work Sans', sans-serif;
+      background: rgba(255, 255, 255, 0.9);
+      color: #6366f1;
+      border-radius: 20px;
+      padding: 8px 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      transition:
+        background 0.3s,
+        color 0.3s,
+        box-shadow 0.3s,
+        transform 0.3s,
+        letter-spacing 0.3s;
+      cursor: pointer;
+      display: inline-block;
+      line-height: 1.2;
+    }
+
+    .fixed-header.centered:hover,
+    .fixed-header.centered:focus {
+      background: linear-gradient(90deg, #6366f1 0%, #ffd700 100%);
+      color: #fff !important;
+      transform: translateX(-50%) scale(1.08) rotate(-2deg);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.25), 0 2px 8px rgba(0,0,0,0.12);
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px rgba(99,102,241,0.15);
+      outline: none;
+    }
+
+    .fixed-credit {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    /* Adjust main content to account for fixed header */
+    .angled-hero {
+      padding-top: 100px;
+    }
+
+    /* FAQ Section Styles */
+    .faq-section {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      padding: 40px 40px;
+      margin-top: 40px;
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-title {
+      text-align: center;
+      font-size: 48px;
+      font-weight: 600;
+      font-family: 'Work Sans', sans-serif;
+      color: #1e293b;
+      margin-bottom: 30px;
+    }
+
+    .faq-item {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      border-left: 4px solid #6366f1;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .faq-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .faq-question {
+      font-size: 20px;
+      font-weight: 600;
+      font-family: 'Work Sans', sans-serif;
+      color: #1e293b;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+
+    .faq-answer {
+      font-size: 16px;
+      font-family: 'Work Sans', sans-serif;
+      color: #64748b;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Responsive FAQ */
+    @media (max-width: 768px) {
+      .faq-section {
+        padding: 30px 20px;
+      }
+      
+      .faq-title {
+        font-size: 36px;
+        margin-bottom: 25px;
+      }
+      
+      .faq-item {
+        padding: 20px;
+      }
+      
+      .faq-question {
+        font-size: 18px;
+      }
+      
+      .faq-answer {
+        font-size: 15px;
+      }
+    }
+
+    /* Hamburger Navigation Styles */
+    .hamburger-nav {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1001;
+    }
+
+    .hamburger-btn {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .hamburger-btn:hover {
+      background: linear-gradient(90deg, #6366f1 0%, #ffd700 100%);
+      transform: scale(1.05);
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.25);
+    }
+
+    .hamburger-btn span {
+      width: 20px;
+      height: 2px;
+      background: #6366f1;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger-btn:hover span {
+      background: white;
+    }
+
+    .hamburger-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    .nav-menu {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 300px;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+      transition: left 0.3s ease;
+      z-index: 1000;
+      padding: 80px 0 20px 0;
+      overflow-y: auto;
+    }
+
+    .nav-menu.active {
+      left: 0;
+    }
+
+    .nav-menu-header {
+      padding: 0 30px 20px 30px;
+      border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .nav-menu-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #6366f1;
+      margin-bottom: 8px;
+      font-family: 'Work Sans', sans-serif;
+    }
+
+    .nav-menu-subtitle {
+      font-size: 12px;
+      color: #6b7280;
+      font-family: 'Work Sans', sans-serif;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav-menu-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-menu-item {
+      margin: 0;
+    }
+
+    .nav-menu-link {
+      display: flex;
+      align-items: center;
+      padding: 16px 30px;
+      color: #374151;
+      text-decoration: none;
+      font-family: 'Work Sans', sans-serif;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .nav-menu-link:hover {
+      background: rgba(99, 102, 241, 0.05);
+      color: #6366f1;
+      border-left-color: #6366f1;
+    }
+
+    .nav-menu-link.active {
+      background: rgba(99, 102, 241, 0.1);
+      color: #6366f1;
+      border-left-color: #6366f1;
+      font-weight: 600;
+    }
+
+    .nav-menu-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .nav-menu-text {
+      flex: 1;
+    }
+
+    .nav-menu-description {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 2px;
+      font-weight: 400;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .nav-menu-link:hover .nav-menu-description {
+      opacity: 1;
+      max-height: 20px;
+      margin-top: 4px;
+    }
+
+    .nav-menu-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-menu-link:hover .nav-menu-icon {
+      transform: scale(1.1);
+    }
+
+    .nav-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+
+    .nav-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Adjust main content to account for fixed header */
+    .angled-hero {
+      padding-top: 100px;
+    }
+
+    .main {
+      padding: 50px 40px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hamburger-nav {
+        top: 15px;
+        left: 15px;
+      }
+
+      .hamburger-btn {
+        width: 36px;
+        height: 36px;
+      }
+
+      .hamburger-btn span {
+        width: 18px;
+      }
+
+      .nav-menu {
+        width: 280px;
+        left: -280px;
+      }
+
+      .nav-menu-header {
+        padding: 0 25px 15px 25px;
+      }
+
+      .nav-menu-link {
+        padding: 14px 25px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-menu {
+        width: 260px;
+        left: -260px;
+      }
+    }
+
+    /* Warning Popup Styles */
+    .warning-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .warning-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .warning-popup {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      transform: scale(0.8);
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+
+    .warning-overlay.active .warning-popup {
+      transform: scale(1);
+    }
+
+    .warning-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .warning-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #dc2626;
+      margin-bottom: 16px;
+      font-family: 'Work Sans', sans-serif;
+    }
+
+    .warning-message {
+      font-size: 16px;
+      color: #374151;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      font-family: 'Work Sans', sans-serif;
+    }
+
+    .warning-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .warning-btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Work Sans', sans-serif;
+    }
+
+    .warning-btn.continue {
+      background: #dc2626;
+      color: white;
+    }
+
+    .warning-btn.continue:hover {
+      background: #b91c1c;
+      transform: translateY(-2px);
+    }
+
+    .warning-btn.cancel {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .warning-btn.cancel:hover {
+      background: #e5e7eb;
+      transform: translateY(-2px);
+    }
+
+    /* Hide FAQ title on smaller screens */
+    @media (max-width: 1024px) {
+      .faq-title {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hamburger Navigation -->
+  <div class="hamburger-nav">
+    <button class="hamburger-btn" onclick="toggleNav()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Navigation Menu -->
+  <div class="nav-menu" id="navMenu">
+    <div class="nav-menu-header">
+      <div class="nav-menu-title">Wordle Wizard</div>
+      <div class="nav-menu-subtitle">Master Wordle with Machine Learning</div>
+    </div>
+    <ul class="nav-menu-list">
+      <li class="nav-menu-item">
+        <a href="index.html" class="nav-menu-link active">
+          <div class="nav-menu-icon">🏠</div>
+          <div class="nav-menu-text">
+            <div>Home</div>
+            <div class="nav-menu-description">Main landing page</div>
+          </div>
+        </a>
+      </li>
+      <li class="nav-menu-item">
+        <a href="solver.html" class="nav-menu-link">
+          <div class="nav-menu-icon">🧠</div>
+          <div class="nav-menu-text">
+            <div>Standard Solver</div>
+            <div class="nav-menu-description">Fast information theory-based solver</div>
+          </div>
+        </a>
+      </li>
+      <li class="nav-menu-item">
+        <a href="#" class="nav-menu-link" onclick="showAdvancedSolverWarning(event)">
+          <div class="nav-menu-icon">⚡</div>
+          <div class="nav-menu-text">
+            <div>Advanced Solver</div>
+            <div class="nav-menu-description">Optimal rollout algorithm solver</div>
+          </div>
+        </a>
+      </li>
+      <li class="nav-menu-item">
+        <a href="faq.html" class="nav-menu-link">
+          <div class="nav-menu-icon">❓</div>
+          <div class="nav-menu-text">
+            <div>FAQ</div>
+            <div class="nav-menu-description">Frequently asked questions</div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Navigation Overlay -->
+  <div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+
+  <!-- Warning Popup -->
+  <div class="warning-overlay" id="warningOverlay">
+    <div class="warning-popup">
+      <div class="warning-icon">⚠️</div>
+      <div class="warning-title">Performance Warning</div>
+      <div class="warning-message">
+        The Advanced Solver uses a computationally intensive rollout algorithm with information theory. 
+        This may cause your computer to crash, the website to fail to load, or the website to not work properly.
+        <br><br>
+        <strong>Are you sure you want to continue?</strong>
+      </div>
+      <div class="warning-buttons">
+        <button class="warning-btn cancel" onclick="hideAdvancedSolverWarning()">Cancel</button>
+        <button class="warning-btn continue" onclick="proceedToAdvancedSolver()">Continue Anyway</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fixed Header Elements -->
+  <div class="site-title boxed-title fixed-header centered"><a href="index.html" style="text-decoration: none; color: inherit;"><strong>Wordle Wizard</strong></a></div>
+  <div class="credit boxed-title fixed-credit">Made by Ryan Quinn</div>
+
+  <section class="angled-hero">
+    <div class="hero-content">
+      <div class="hero-text-section">
+        <div class="headline">
+          Solve Wordle with <br>
+          <span style="background: linear-gradient(120deg, #ffd700 0%, #ffed4e 100%); padding: 0 8px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">machine learning</span>, <br>
+          not guesses
+        </div>
+      </div>
+      <div class="hero-image-section">
+        <img src="https://www.cnet.com/a/img/resize/87fafb799e68b9af73dac467c3ea56f20c660599/hub/2024/05/28/20480816-214e-4fcc-a9b4-b02f0ac71e7c/wordle-word-game-hints-puzzle-8667.jpg?auto=webp&fit=crop&height=900&width=1200" alt="Wordle puzzle" 
+        onerror="this.onerror=null;this.src='https://placehold.co/350x580/e0e0e0/333?text=Image+Not+Found';"/>
+        <a href="solver.html" class="hero-image-overlay">
+          <div class="hero-image-overlay-text">Try Solver</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <main class="main">
+    <div class="description-container">
+      <p class="description">
+        Harness the power of machine learning with Wordle Wizard to consistently master Wordle. The model, trained on millions of Wordle games, finds the correct word in the fewest guesses possible.
+      </p>
+    </div>
+
+    <!-- --- REPLACEMENT --- The payment box is replaced with this image container -->
+    <div class="image-container">
+      <img src="https://www.cnet.com/a/img/resize/87fafb799e68b9af73dac467c3ea56f20c660599/hub/2024/05/28/20480816-214e-4fcc-a9b4-b02f0ac71e7c/wordle-word-game-hints-puzzle-8667.jpg?auto=webp&fit=crop&height=900&width=1200" alt="Wordle puzzle" class="product-image" 
+      onerror="this.onerror=null;this.src='https://placehold.co/350x580/e0e0e0/333?text=Image+Not+Found';"/>
+      <a href="solver.html" class="image-overlay">
+        <div class="image-overlay-text">Try Solver</div>
+      </a>
+    </div>
+  </main>
+
+  <script>
+    // Hamburger Navigation Functionality
+    function toggleNav() {
+      const navMenu = document.getElementById('navMenu');
+      const navOverlay = document.getElementById('navOverlay');
+      const hamburgerBtn = document.querySelector('.hamburger-btn');
+      
+      navMenu.classList.toggle('active');
+      navOverlay.classList.toggle('active');
+      hamburgerBtn.classList.toggle('active');
+      
+      // Prevent body scroll when menu is open
+      if (navMenu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+
+    function closeNav() {
+      const navMenu = document.getElementById('navMenu');
+      const navOverlay = document.getElementById('navOverlay');
+      const hamburgerBtn = document.querySelector('.hamburger-btn');
+      
+      navMenu.classList.remove('active');
+      navOverlay.classList.remove('active');
+      hamburgerBtn.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Close menu when clicking on a link
+    document.querySelectorAll('.nav-menu-link').forEach(link => {
+      link.addEventListener('click', () => {
+        closeNav();
+      });
+    });
+
+    // Close menu with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeNav();
+      }
+    });
+
+    // Close menu on window resize (for mobile orientation changes)
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        closeNav();
+      }
+    });
+
+    // Advanced Solver Warning Functions
+    function showAdvancedSolverWarning(event) {
+      event.preventDefault();
+      const warningOverlay = document.getElementById('warningOverlay');
+      warningOverlay.classList.add('active');
+      closeNav(); // Close the navigation menu
+    }
+
+    function hideAdvancedSolverWarning() {
+      const warningOverlay = document.getElementById('warningOverlay');
+      warningOverlay.classList.remove('active');
+    }
+
+    function proceedToAdvancedSolver() {
+      hideAdvancedSolverWarning();
+      window.location.href = 'advanced_solver.html';
+    }
+
+    // Close warning when clicking outside
+    document.getElementById('warningOverlay').addEventListener('click', function(event) {
+      if (event.target === this) {
+        hideAdvancedSolverWarning();
+      }
+    });
+
+    // Close warning with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        hideAdvancedSolverWarning();
+      }
+    });
+  </script>
+
+</body>
+</html> 

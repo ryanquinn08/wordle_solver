@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wordle Wizard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Work Sans', sans-serif;
+    }
+
+    body {
+      font-family: 'Work Sans', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      min-height: 100vh;
+    }
+
+    header {
+      background: transparent;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      font-family: 'Work Sans', sans-serif;
+    }
+
+    .site-title {
+      background: rgba(255, 255, 255, 0.9);
+      color: #6366f1;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 18px;
+      font-weight: 600;
+      font-family: 'Work Sans', sans-serif;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      transition:
+        background 0.3s,
+        color 0.3s,
+        box-shadow 0.3s,
+        transform 0.3s,
+        letter-spacing 0.3s;
+      cursor: pointer;
+      display: inline-block;
+      line-height: 1.2;
+      text-decoration: none;
+    }
+
+    .site-title:hover,
+    .site-title:focus {
+      background: linear-gradient(90deg, #6366f1 0%, #ffd700 100%);
+      color: #fff !important;
+      transform: scale(1.08) rotate(-2deg);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.25), 0 2px 8px rgba(0,0,0,0.12);
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px rgba(99,102,241,0.15);
+      outline: none;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #374151;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #6366f1;
+    }
+
+    .cta {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+
+    .credit {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #6366f1;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 18px;
+      font-weight: 600;
+      font-family: 'Work Sans', sans-serif;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      transition:
+        background 0.3s,
+        color 0.3s,
+        box-shadow 0.3s,
+        transform 0.3s,
+        letter-spacing 0.3s;
+      cursor: pointer;
+      display: inline-block;
+      line-height: 1.2;
+      z-index: 1000;
+    }
+
+    .credit:hover {
+      background: linear-gradient(90deg, #6366f1 0%, #ffd700 100%);
+      color: #fff;
+      transform: scale(1.08) rotate(-2deg);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.25), 0 2px 8px rgba(0,0,0,0.12);
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px rgba(99,102,241,0.15);
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 120px 40px 80px;
+    }
+
+    .faq-title {
+      text-align: center;
+      font-size: 48px;
+      font-weight: 600;
+      font-family: 'Work Sans', sans-serif;
+      color: #1e293b;
+      margin-bottom: 60px;
+    }
+
+    .faq-item {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      border-left: 4px solid #6366f1;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .faq-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .faq-question {
+      font-size: 20px;
+      font-weight: 600;
+      font-family: 'Work Sans', sans-serif;
+      color: #1e293b;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+
+    .faq-answer {
+      font-size: 16px;
+      font-family: 'Work Sans', sans-serif;
+      color: #64748b;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Responsive adjustments to prevent overlap */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+      }
+      
+      nav {
+        display: none;
+      }
+      
+      .faq-container {
+        padding: 60px 20px;
+      }
+      
+      .faq-title {
+        font-size: 36px;
+        margin-bottom: 40px;
+      }
+      
+      .faq-item {
+        padding: 20px;
+      }
+      
+      .faq-question {
+        font-size: 18px;
+      }
+      
+      .faq-answer {
+        font-size: 15px;
+      }
+
+      /* Prevent overlap on tablets */
+      .fixed-header.centered {
+        font-size: 16px;
+        padding: 6px 12px;
+        top: 15px;
+        max-width: 200px;
+      }
+
+      .fixed-credit {
+        font-size: 14px;
+        padding: 6px 12px;
+        top: 15px;
+        right: 15px;
+        max-width: 150px;
+      }
+    }
+
+    /* Small screens */
+    @media (max-width: 600px) {
+      .fixed-header.centered {
+        font-size: 14px;
+        padding: 5px 10px;
+        top: 10px;
+        max-width: 180px;
+      }
+
+      .fixed-credit {
+        font-size: 12px;
+        padding: 5px 10px;
+        top: 10px;
+        right: 10px;
+        max-width: 120px;
+      }
+    }
+
+    /* Extra small screens */
+    @media (max-width: 480px) {
+      .fixed-header.centered {
+        font-size: 12px;
+        padding: 4px 8px;
+        top: 8px;
+        max-width: 150px;
+      }
+
+      .fixed-credit {
+        font-size: 10px;
+        padding: 4px 8px;
+        top: 8px;
+        right: 8px;
+        max-width: 100px;
+      }
+
+      .nav-toggle {
+        top: 8px;
+        left: 8px;
+        width: 32px;
+        height: 32px;
+      }
+
+      .nav-toggle span {
+        width: 14px;
+        height: 1.5px;
+      }
+    }
+
+    /* Very small screens */
+    @media (max-width: 360px) {
+      .fixed-header.centered {
+        font-size: 11px;
+        padding: 3px 6px;
+        top: 5px;
+        max-width: 130px;
+      }
+
+      .fixed-credit {
+        font-size: 9px;
+        padding: 3px 6px;
+        top: 5px;
+        right: 5px;
+        max-width: 90px;
+      }
+    }
+
+    .fixed-header {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+
+    .fixed-credit {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .fixed-header.centered {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+      font-family: 'Work Sans', sans-serif;
+      background: rgba(255, 255, 255, 0.9);
+      color: #6366f1;
+      border-radius: 20px;
+      padding: 8px 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      transition:
+        background 0.3s,
+        color 0.3s,
+        box-shadow 0.3s,
+        transform 0.3s,
+        letter-spacing 0.3s;
+      cursor: pointer;
+      display: inline-block;
+      line-height: 1.2;
+    }
+
+    .fixed-header.centered:hover,
+    .fixed-header.centered:focus {
+      background: linear-gradient(90deg, #6366f1 0%, #ffd700 100%);
+      color: #fff !important;
+      transform: translateX(-50%) scale(1.08) rotate(-2deg);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.25), 0 2px 8px rgba(0,0,0,0.12);
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px rgba(99,102,241,0.15);
+      outline: none;
+    }
+
+    .nav-toggle {
+      position: fixed;
+      left: 20px;
+      top: 20px;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1001;
+      transition: all 0.3s ease;
+    }
+
+    /* Standardized boxed title styling for both elements */
+    .boxed-title {
+      background: rgba(255, 255, 255, 0.9);
+      color: #6366f1;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 18px;
+      font-weight: 600;
+      font-family: 'Work Sans', sans-serif;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      transition:
+        background 0.3s,
+        color 0.3s,
+        box-shadow 0.3s,
+        transform 0.3s,
+        letter-spacing 0.3s;
+      cursor: pointer;
+      display: inline-block;
+      line-height: 1.2;
+    }
+
+    .boxed-title:hover,
+    .boxed-title:focus {
+      background: linear-gradient(90deg, #6366f1 0%, #ffd700 100%);
+      color: #fff !important;
+      transform: scale(1.08) rotate(-2deg);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.25), 0 2px 8px rgba(0,0,0,0.12);
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px rgba(99,102,241,0.15);
+      outline: none;
+    }
+
+    /* Hamburger Navigation Styles */
+    .hamburger-nav {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1001;
+    }
+
+    .hamburger-btn {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .hamburger-btn:hover {
+      background: linear-gradient(90deg, #6366f1 0%, #ffd700 100%);
+      transform: scale(1.05);
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.25);
+    }
+
+    .hamburger-btn span {
+      width: 20px;
+      height: 2px;
+      background: #6366f1;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger-btn:hover span {
+      background: white;
+    }
+
+    .hamburger-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    .nav-menu {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 300px;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+      transition: left 0.3s ease;
+      z-index: 1000;
+      padding: 80px 0 20px 0;
+      overflow-y: auto;
+    }
+
+    .nav-menu.active {
+      left: 0;
+    }
+
+    .nav-menu-header {
+      padding: 0 30px 20px 30px;
+      border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .nav-menu-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #6366f1;
+      margin-bottom: 8px;
+      font-family: 'Work Sans', sans-serif;
+    }
+
+    .nav-menu-subtitle {
+      font-size: 12px;
+      color: #6b7280;
+      font-family: 'Work Sans', sans-serif;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav-menu-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-menu-item {
+      margin: 0;
+    }
+
+    .nav-menu-link {
+      display: flex;
+      align-items: center;
+      padding: 16px 30px;
+      color: #374151;
+      text-decoration: none;
+      font-family: 'Work Sans', sans-serif;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .nav-menu-link:hover {
+      background: rgba(99, 102, 241, 0.05);
+      color: #6366f1;
+      border-left-color: #6366f1;
+    }
+
+    .nav-menu-link.active {
+      background: rgba(99, 102, 241, 0.1);
+      color: #6366f1;
+      border-left-color: #6366f1;
+      font-weight: 600;
+    }
+
+    .nav-menu-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-menu-link:hover .nav-menu-icon {
+      transform: scale(1.1);
+    }
+
+    .nav-menu-text {
+      flex: 1;
+    }
+
+    .nav-menu-description {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 2px;
+      font-weight: 400;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .nav-menu-link:hover .nav-menu-description {
+      opacity: 1;
+      max-height: 20px;
+      margin-top: 4px;
+    }
+
+    .nav-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+
+    .nav-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hamburger-nav {
+        top: 15px;
+        left: 15px;
+      }
+
+      .hamburger-btn {
+        width: 36px;
+        height: 36px;
+      }
+
+      .hamburger-btn span {
+        width: 18px;
+      }
+
+      .nav-menu {
+        width: 280px;
+        left: -280px;
+      }
+
+      .nav-menu-header {
+        padding: 0 25px 15px 25px;
+      }
+
+      .nav-menu-link {
+        padding: 14px 25px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-menu {
+        width: 260px;
+        left: -260px;
+      }
+    }
+
+    /* Warning Popup Styles */
+    .warning-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .warning-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .warning-popup {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      transform: scale(0.8);
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+
+    .warning-overlay.active .warning-popup {
+      transform: scale(1);
+    }
+
+    .warning-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .warning-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #dc2626;
+      margin-bottom: 16px;
+      font-family: 'Work Sans', sans-serif;
+    }
+
+    .warning-message {
+      font-size: 16px;
+      color: #374151;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      font-family: 'Work Sans', sans-serif;
+    }
+
+    .warning-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .warning-btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Work Sans', sans-serif;
+    }
+
+    .warning-btn.continue {
+      background: #dc2626;
+      color: white;
+    }
+
+    .warning-btn.continue:hover {
+      background: #b91c1c;
+      transform: translateY(-2px);
+    }
+
+    .warning-btn.cancel {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .warning-btn.cancel:hover {
+      background: #e5e7eb;
+      transform: translateY(-2px);
+    }
+
+    /* Hide FAQ title on smaller screens */
+    @media (max-width: 1024px) {
+      .faq-title {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hamburger Navigation -->
+  <div class="hamburger-nav">
+    <button class="hamburger-btn" onclick="toggleNav()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Navigation Menu -->
+  <div class="nav-menu" id="navMenu">
+    <div class="nav-menu-header">
+      <div class="nav-menu-title">Wordle Wizard</div>
+      <div class="nav-menu-subtitle">Master Wordle with Machine Learning</div>
+    </div>
+    <ul class="nav-menu-list">
+      <li class="nav-menu-item">
+        <a href="index.html" class="nav-menu-link">
+          <div class="nav-menu-icon">🏠</div>
+          <div class="nav-menu-text">
+            <div>Home</div>
+            <div class="nav-menu-description">Main landing page</div>
+          </div>
+        </a>
+      </li>
+      <li class="nav-menu-item">
+        <a href="solver.html" class="nav-menu-link">
+          <div class="nav-menu-icon">🧠</div>
+          <div class="nav-menu-text">
+            <div>Standard Solver</div>
+            <div class="nav-menu-description">Fast information theory-based solver</div>
+          </div>
+        </a>
+      </li>
+      <li class="nav-menu-item">
+        <a href="#" class="nav-menu-link" onclick="showAdvancedSolverWarning(event)">
+          <div class="nav-menu-icon">⚡</div>
+          <div class="nav-menu-text">
+            <div>Advanced Solver</div>
+            <div class="nav-menu-description">Optimal rollout algorithm solver</div>
+          </div>
+        </a>
+      </li>
+      <li class="nav-menu-item">
+        <a href="faq.html" class="nav-menu-link active">
+          <div class="nav-menu-icon">❓</div>
+          <div class="nav-menu-text">
+            <div>FAQ</div>
+            <div class="nav-menu-description">Frequently asked questions</div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Navigation Overlay -->
+  <div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+
+  <!-- Warning Popup -->
+  <div class="warning-overlay" id="warningOverlay">
+    <div class="warning-popup">
+      <div class="warning-icon">⚠️</div>
+      <div class="warning-title">Performance Warning</div>
+      <div class="warning-message">
+        The Advanced Solver uses a computationally intensive rollout algorithm with information theory. 
+        This may cause your computer to crash, the website to fail to load, or the website to not work properly.
+        <br><br>
+        <strong>Are you sure you want to continue?</strong>
+      </div>
+      <div class="warning-buttons">
+        <button class="warning-btn cancel" onclick="hideAdvancedSolverWarning()">Cancel</button>
+        <button class="warning-btn continue" onclick="proceedToAdvancedSolver()">Continue Anyway</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fixed Header Elements -->
+  <div class="site-title boxed-title fixed-header centered"><a href="index.html" style="text-decoration: none; color: inherit;"><strong>Wordle Wizard</strong></a></div>
+  <div class="credit boxed-title fixed-credit">Made by Ryan Quinn</div>
+
+  <div class="faq-container">
+    <h1 class="faq-title">Frequently Asked Questions</h1>
+    
+    <div class="faq-item">
+      <h3 class="faq-question">How accurate are the solver suggestions?</h3>
+      <p class="faq-answer">The advanced solver achieves an average of 3.4 guesses per game. The standard solver also performs excellently, typically solving Wordle in 3.6 guesses.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="faq-question">What's the difference between the Standard and Advanced solvers?</h3>
+      <p class="faq-answer">The Standard Solver uses enhanced information theory and entropy-based scoring for fast, intelligent suggestions. The Advanced Solver uses a rollout algorithm that simulates multiple future moves to find the mathematically optimal play, resulting in slightly better performance but longer calculation times.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="faq-question">Why does the Advanced Solver take longer to load?</h3>
+      <p class="faq-answer">The Advanced Solver performs thousands of game simulations to find the optimal move. This computational complexity ensures the best possible suggestions but requires more processing time. The initial load may take 1-2 minutes, but subsequent suggestions are much faster. Some browsers may not support the advanced solver.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="faq-question">Can I use these solvers for any Wordle variant?</h3>
+      <p class="faq-answer">Yes! The solvers work with any 5-letter word game that uses the same feedback system as Wordle (green for correct letter/position, yellow for correct letter/wrong position, gray for letter not in word).</p>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="faq-question">How do I use the solver effectively?</h3>
+      <p class="faq-answer">Enter your guess, click the tiles to set the correct feedback colors (gray/yellow/green), then click "Next Word" to get the solver's suggestion. The solver will analyze all possible words and recommend the optimal next guess.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="faq-question">Does the solver guarantee I'll win every game?</h3>
+      <p class="faq-answer">While our solvers have a 99.8% success rate, they cannot guarantee victory in every game due to the inherent randomness of Wordle. However, they will consistently give you the best possible chance of winning in the fewest guesses.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="faq-question">What word list does the solver use?</h3>
+      <p class="faq-answer">The solver uses the official Wordle word list containing 2,315 words, ensuring compatibility with the actual Wordle game and providing accurate suggestions for all valid Wordle words.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="faq-question">Is the solver free to use?</h3>
+      <p class="faq-answer">Yes! Both the Standard and Advanced solvers are completely free to use. No registration, no downloads, no hidden costs - just open the solver and start improving your Wordle game immediately.</p>
+    </div>
+  </div>
+
+  <script>
+    // Hamburger Navigation Functionality
+    function toggleNav() {
+      const navMenu = document.getElementById('navMenu');
+      const navOverlay = document.getElementById('navOverlay');
+      const hamburgerBtn = document.querySelector('.hamburger-btn');
+      
+      navMenu.classList.toggle('active');
+      navOverlay.classList.toggle('active');
+      hamburgerBtn.classList.toggle('active');
+      
+      // Prevent body scroll when menu is open
+      if (navMenu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+
+    function closeNav() {
+      const navMenu = document.getElementById('navMenu');
+      const navOverlay = document.getElementById('navOverlay');
+      const hamburgerBtn = document.querySelector('.hamburger-btn');
+      
+      navMenu.classList.remove('active');
+      navOverlay.classList.remove('active');
+      hamburgerBtn.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Close menu when clicking on a link
+    document.querySelectorAll('.nav-menu-link').forEach(link => {
+      link.addEventListener('click', () => {
+        closeNav();
+      });
+    });
+
+    // Close menu with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeNav();
+      }
+    });
+
+    // Close menu on window resize (for mobile orientation changes)
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        closeNav();
+      }
+    });
+
+    // Advanced Solver Warning Functions
+    function showAdvancedSolverWarning(event) {
+      event.preventDefault();
+      const warningOverlay = document.getElementById('warningOverlay');
+      warningOverlay.classList.add('active');
+      closeNav(); // Close the navigation menu
+    }
+
+    function hideAdvancedSolverWarning() {
+      const warningOverlay = document.getElementById('warningOverlay');
+      warningOverlay.classList.remove('active');
+    }
+
+    function proceedToAdvancedSolver() {
+      hideAdvancedSolverWarning();
+      window.location.href = 'advanced_solver.html';
+    }
+
+    // Close warning when clicking outside
+    document.getElementById('warningOverlay').addEventListener('click', function(event) {
+      if (event.target === this) {
+        hideAdvancedSolverWarning();
+      }
+    });
+
+    // Close warning with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        hideAdvancedSolverWarning();
+      }
+    });
+  </script>
+
+</body>
+</html> 

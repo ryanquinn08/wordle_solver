@@ -1194,10 +1194,578 @@
     </div>
   </div>
 
-  <script src="word_list.js"></script>
-  <script src="solver-enhanced.js"></script>
-  <script src="solver.js"></script>
   <script>
+    // Word List (embedded directly)
+    const WORD_LIST = [
+      "aback","abase","abate","abbey","abbot","abhor","abide","abled","abode","abort","about","above","abuse","abyss","acorn","acrid","actor","acute","adage","adapt","adept","admin","admit","adobe","adopt","adore","adorn","adult","affix","afire","afoot","afoul","after","again","agape","agate","agent","agile","aging","aglow","agony","agora","agree","ahead","aider","aisle","alarm","album","alert","algae","alibi","alien","align","alike","alive","allay","alley","allot","allow","alloy","aloft","alone","along","aloof","aloud","alpha","altar","alter","amass","amaze","amber","amble","amend","amiss","amity","among","ample","amply","amuse","angel","anger","angle","angry","angst","anime","ankle","annex","annoy","annul","anode","antic","anvil","aorta","apart","aphid","aping","apnea","apple","apply","apron","aptly","arbor","ardor","arena","argue","arise","armor","aroma","arose","array","arrow","arson","artsy","ascot","ashen","aside","askew","assay","asset","atoll","atone","attic","audio","audit","augur","aunty","avail","avert","avian","avoid","await","awake","award","aware","awash","awful","awoke","axial","axiom","axion","azure","bacon","badge","badly","bagel","baggy","baker","baler","balmy","banal","banjo","barge","baron","basal","basic","basil","basin","basis","baste","batch","bathe","baton","batty","bawdy","bayou","beach","beady","beard","beast","beech","beefy","befit","began","begat","beget","begin","begun","being","belch","belie","belle","belly","below","bench","beret","berry","berth","beset","betel","bevel","bezel","bible","bicep","biddy","bigot","bilge","billy","binge","bingo","biome","birch","birth","bison","bitty","black","blade","blame","bland","blank","blare","blast","blaze","bleak","bleat","bleed","bleep","blend","bless","blimp","blind","blink","bliss","blitz","bloat","block","bloke","blond","blood","bloom","blown","bluer","bluff","blunt","blurb","blurt","blush","board","boast","bobby","boney","bongo","bonus","booby","boost","booth","booty","booze","boozy","borax","borne","bosom","bossy","botch","bough","boule","bound","bowel","boxer","brace","braid","brain","brake","brand","brash","brass","brave","bravo","brawl","brawn","bread","break","breed","briar","bribe","brick","bride","brief","brine","bring","brink","briny","brisk","broad","broil","broke","brood","brook","broom","broth","brown","brunt","brush","brute","buddy","budge","buggy","bugle","build","built","bulge","bulky","bully","bunch","bunny","burly","burnt","burst","bused","bushy","butch","butte","buxom","buyer","bylaw","cabal","cabby","cabin","cable","cacao","cache","cacti","caddy","cadet","cagey","cairn","camel","cameo","canal","candy","canny","canoe","canon","caper","caput","carat","cargo","carol","carry","carve","caste","catch","cater","catty","caulk","cause","cavil","cease","cedar","cello","chafe","chaff","chain","chair","chalk","champ","chant","chaos","chard","charm","chart","chase","chasm","cheap","cheat","check","cheek","cheer","chess","chest","chick","chide","chief","child","chili","chill","chime","china","chirp","chock","choir","choke","chord","chore","chose","chuck","chump","chunk","churn","chute","cider","cigar","cinch","circa","civic","civil","clack","claim","clamp","clang","clank","clash","clasp","class","clean","clear","cleat","cleft","clerk","click","cliff","climb","cling","clink","cloak","clock","clone","close","cloth","cloud","clout","clove","clown","cluck","clued","clump","clung","coach","coast","cobra","cocoa","colon","color","comet","comfy","comic","comma","conch","condo","conic","copse","coral","corer","corny","couch","cough","could","count","coupe","court","coven","cover","covet","covey","cower","coyly","crack","craft","cramp","crane","crank","crash","crass","crate","crave","crawl","craze","crazy","creak","cream","credo","creed","creek","creep","creme","crepe","crept","cress","crest","crook","cross","croup","crowd","crown","crude","cruel","crumb","crump","crush","crust","crypt","cubic","cumin","curio","curly","curry","curse","curve","curvy","cutie","cyber","cycle","cynic","daddy","daily","dairy","daisy","dally","dance","dandy","datum","daunt","dealt","death","debar","debit","debug","debut","decal","decay","decor","decoy","decry","defer","deign","deity","delay","delta","delve","demon","demur","denim","dense","depot","depth","derby","deter","detox","deuce","devil","diary","dicey","digit","dilly","dimly","diner","dingo","dingy","diode","dirge","dirty","disco","ditch","ditto","ditty","diver","dizzy","dodge","dodgy","dogma","doing","dolly","donor","donut","dopey","doubt","dough","dowdy","dowel","downy","dowry","dozen","draft","drain","drake","drama","drank","drape","drawl","drawn","dread","dream","dress","dried","drier","drift","drill","drink","drive","droit","droll","drone","drool","droop","dross","drove","drown","druid","drunk","dryer","dryly","duchy","dully","dummy","dumpy","dunce","dusky","dusty","dutch","duvet","dwarf","dwell","dwelt","dying","eager","eagle","early","earth","easel","eaten","eater","ebony","eclat","edict","edify","eerie","egret","eight","eject","eking","elate","elbow","elder","elect","evade","evoke","exact","exalt","excel","exert","exile","exist","expel","extol","extra","exult","eying","fable","facet","faint","fairy","faith","false","fancy","fanny","farce","fatal","fatty","fault","feign","feint","fella","felon","femme","femur","fence","feral","ferry","fetal","fetch","feud","fever","fewer","fey","fibre","ficus","field","fiend","fiery","fifth","fifty","fight","filly","final","finch","finer","first","fishy","fixer","fizzy","flair","flaky","flash","fleck","fleet","flesh","flick","flier","flint","flirt","float","flock","flood","floor","flour","flout","flown","fluff","fluid","flyer","foamy","focal","foist","folly","foray","force","forge","forgo","form","forte","forth","forty","forum","found","foyer","frail","frame","frank","fraud","freak","freed","freer","fresh","friar","fried","fright","frill","frock","frond","front","frost","froth","frown","fruity","frump","fry","fugue","full","fumed","funny","furry","fussy","fuzzy","gabby","gaffe","gaily","gamer","gamy","gape","garb","gash","gasp","gaudy","gawky","gayer","gayly","gazer","geck","ged","geeky","gel","geld","gem","genie","ghast","ghost","ghoul","giant","gibed","gible","giddy","gifts","gills","gimpy","girly","girth","glade","glare","glass","glint","globe","gloom","glory","gloss","glove","glow","glue","gnarl","gnome","gnats","gnaw","goads","goo","gooey","goof","gore","gorse","gouge","gourd","grape","grapy","gravy","grebe","greed","greek","green","grey","grill","grim","grind","gripe","groan","groin","groom","groove","grope","gross","grouch","group","grove","growl","grub","grump","guano","guava","gulch","gules","gull","gully","guppy","gusto","gusty","gyoza","gyoza","habit","hairy","haiti","haler","hale","half","hallo","halo","ham","handy","happy","hardy","harem","harpy","haste","hatch","hater","haute","hazel","heady","heard","heart","heavy","hedge","hefty","heigh","heirs","helix","hello","henna","heron","hick","hid","hide","high","hike","hill","hilly","hint","hippo","hippy","hired","hiss","hoard","hoax","hobby","hock","hodge","hoed","hoes","hogan","hoist","hokum","holly","homer","honey","hone","honk","hood","hoof","hook","hoop","hoppy","horde","hose","hosty","hotly","hound","hour","howdy","hubby","huffy","huger","hullo","humid","humor","humph","hunch","hunky","hurry","hush","husky","hutch","hydra","hydro","hyena","hymen","hyper","icily","icing","icon","icy","idea","idler","igloo","image","imbue","impel","imply","inane","inbox","incur","index","indie","inept","inert","infix","ingot","inked","inlay","inset","insip","intel","inter","intro","inure","iodic","ionic","irate","irene","irony","islet","issue","itchy","ivory","jabot","jack","jaded","jadeo","jaded","jager","jaguar","jail","jalap","jaleo","jambi","jambs","jammy","janes","japes","jarls","jason","jaunt","jazzy","jeans","jeats","jebel","jedis","jeers","jello","jelly","jenny","jerky","jests","jests","jetes","jewel","jibed","jibes","jiffy","jills","jimmy","jinks","jived","jives","jivey","joker","jokes","jolly","jolts","jones","jotas","joule","joust","jowls","joyed","joyer","judas","judos","jules","jumbo","jumpy","junks","junta","junto","juror","kabul","kanga","kansa","kansa","kanzu","kapok","kaput","karat","karma","kayak","kazoo","kebab","kebob","kedge","kelpy","kenaf","kendo","kerry","ketch","keyed","kicky","kilos","kilts","kinda","kinds","kilos","kinky","kiosk","kited","kites","kitty","kiwis","kneed","knead","knell","knelt","knees","knew","koala","kooky","kraft","kraut","kudos","kudzu","labia","label","labia","labor","laced","lacey","lacks","laded","laden","lader","ladle","laity","lakes","lamas","lamps","lance","lands","lapel","larch","large","larva","laser","lasso","last","latch","later","lathe","latte","laugh","laura","lawns","laxly","layer","leach","leads","leafy","leaky","learn","leash","least","leave","ledge","leeds","lefty","legal","leggy","legit","lemon","lemur","lends","lens","lent","leone","leper","let's","level","lever","liana","libel","libra","lice","lifer","light","liked","liken","lilac","lilly","limbo","limbs","limes","limit","lined","linen","liner","lingo","links","lions","lipid","lippy","lithe","llama","llano","lobby","local","loden","lofty","logan","logic","login","logos","loins","loner","long","looky","loopy","loose","lorry","loser","loss","lotus","lough","louis","loved","lover","lowly","loyal","lucid","lucky","lumen","lumpy","lunar","lunch","lunge","lupus","lurch","lusty","lycra","lyman","lymph","lynch","lyons","lyric","macaw","macho","macro","madam","madly","mafia","magic","magma","magna","magus","mahua","maile","major","maker","malar","males","malic","malls","malt","mama","mane","mania","manly","manna","manor","maple","march","mares","maria","mark","marsh","mart","maser","mash","mask","mass","mast","match","matte","mauve","maxim","maybe","mayor","mazed","mazer","mazes","meals","mealy","meant","meats","medal","media","medic","melee","melon","memo","mensa","mercy","merge","merit","mesa","mete","meter","metro","micro","midge","midst","might","milky","miler","miles","milit","mimed","mimer","mimes","miner","mingy","minor","mints","minus","mired","mirth","mist","miter","mites","mitts","mixed","moans","moats","mobil","modal","modem","moire","molar","molds","molts","mommy","monad","money","monks","month","moody","moons","moors","moral","moron","mossy","motel","motif","motor","motto","mould","moust","mouth","movie","mower","mozes","munch","muons","mural","murky","musky","musty","myths","nadir","nanny","nasal","nasty","natal","naval","navel","needy","nerdy","nerve","never","newer","newly","nicer","niche","niece","night","ninja","ninny","ninth","noble","nobly","noise","noisy","nomad","noose","north","nosey","notch","novel","nudge","nurse","nutty","nylon","oaken","obese","occur","ocean","octal","octet","odder","oddly","offal","offer","often","olden","older","olive","ombre","omega","onion","onset","opera","opine","opium","optic","orbit","order","organ","other","otter","ought","ounce","outdo","outer","outgo","ovary","ovate","overt","ovine","ovoid","owing","owner","oxide","ozone","paddy","pagan","paint","paler","palsy","panel","panic","pansy","papal","paper","parer","parka","parry","parse","party","pasta","paste","pasty","patch","patio","patsy","patty","pause","payee","payer","peace","peach","pearl","pecan","pedal","penal","pence","penne","penny","perch","peril","perky","pesky","pesto","petal","petty","phase","phone","phony","photo","piano","picky","piece","piety","piggy","pilot","pinch","piney","pinky","pinto","piper","pique","pitch","pithy","pivot","pixel","pixie","pizza","place","plaid","plain","plait","plane","plank","plant","plate","plaza","plead","pleat","plied","plier","pluck","plumb","plume","plump","plunk","plush","poesy","point","poise","poker","polar","polka","polyp","pooch","poppy","porch","poser","posit","posse","pouch","pound","pouty","power","prank","prawn","preen","press","price","prick","pride","pried","prime","primo","print","prior","prism","privy","prize","probe","prone","prong","proof","prose","proud","prove","prowl","proxy","prude","prune","psalm","pubic","pudgy","puffy","pulpy","pulse","punch","pupal","pupil","puppy","puree","purer","purge","purse","pushy","putty","pygmy","quack","quail","quake","qualm","quark","quart","quash","quasi","queen","queer","quell","query","quest","queue","quick","quiet","quill","quilt","quirk","quite","quota","quote","quoth","rabbi","rabid","racer","radar","radii","radio","rainy","raise","rajah","rally","ralph","ramen","ranch","randy","range","rapid","rarer","raspy","ratio","ratty","raven","rayon","razor","reach","react","ready","realm","rearm","rebar","rebel","rebus","rebut","recap","recur","recut","reedy","refer","refit","regal","rehab","reign","relax","relay","relic","remit","renal","renew","repay","repel","reply","rerun","reset","resin","retch","retro","retry","reuse","revel","revue","rhino","rhyme","rider","ridge","rifle","right","rigid","rigor","rinse","ripen","riper","risen","riser","risky","rival","river","rivet","roach","roast","robin","robot","rocky","rodeo","roger","rogue","roomy","roost","rotor","rouge","rough","round","rouse","route","rover","rowdy","rower","royal","ruddy","ruder","rugby","ruler","rumba","rumor","rupee","rural","rusty","sadly","safer","saint","salad","sally","salon","salsa","salty","salve","salvo","sandy","saner","sappy","sassy","satin","satyr","sauce","saucy","sauna","saute","savor","savoy","savvy","scald","scale","scalp","scaly","scamp","scant","scare","scarf","scary","scene","scent","scion","scoff","scold","scone","scoop","scope","score","scorn","scour","scout","scowl","scram","scrap","scree","screw","scrub","scrum","scuba","sedan","seedy","segue","seize","semen","sense","sepia","serif","serum","serve","setup","seven","sever","sewer","shack","shade","shady","shaft","shake","shaky","shale","shall","shalt","shame","shank","shape","shard","share","shark","sharp","shave","shawl","shear","sheen","sheep","sheer","sheet","sheik","shelf","shell","shied","shift","shine","shiny","shire","shirk","shirt","shoal","shock","shone","shook","shoot","shore","shorn","short","shout","shove","shown","showy","shrew","shrub","shrug","shuck","shunt","shush","shyly","siege","sieve","sight","sigma","silky","silly","since","sinew","singe","siren","sissy","sixth","sixty","skate","skier","skiff","skill","skimp","skirt","skulk","skull","skunk","slack","slain","slang","slant","slash","slate","slave","sleek","sleep","sleet","slept","slice","slick","slide","slime","slimy","sling","slink","sloop","slope","slosh","sloth","slump","slung","slunk","slurp","slush","slyly","smack","small","smart","smash","smear","smell","smelt","smile","smirk","smite","smith","smock","smoke","smoky","smote","snack","snail","snake","snaky","snare","snarl","sneak","sneer","snide","sniff","snipe","snoop","snore","snort","snout","snowy","snuck","snuff","soapy","sober","soggy","solar","solid","solve","sonar","sonic","sooth","sooty","sorry","sound","south","sower","space","spade","spank","spare","spark","spasm","spawn","speak","spear","speck","speed","spell","spelt","spend","spent","sperm","spice","spicy","spied","spiel","spike","spiky","spill","spilt","spine","spiny","spire","spite","splat","split","spoil","spoke","spoof","spook","spool","spoon","spore","sport","spout","spray","spree","sprig","spunk","spurn","spurt","squad","squat","squib","stack","staff","stage","staid","stain","stair","stake","stale","stalk","stall","stamp","stand","stank","stare","stark","start","stash","state","stave","stead","steak","steal","steam","steed","steel","steep","steer","stein","stern","stick","stiff","still","stilt","sting","stink","stint","stock","stoic","stoke","stole","stomp","stone","stony","stood","stool","stoop","store","stork","storm","story","stout","stove","strap","straw","stray","strip","strut","stuck","study","stuff","stump","stung","stunk","stunt","style","suave","sugar","suing","suite","sulky","sully","sumac","sunny","super","surer","surge","surly","sushi","swami","swamp","swarm","swash","swath","swear","sweat","sweep","sweet","swell","swept","swift","swill","swine","swing","swirl","swish","swoon","swoop","sword","swore","sworn","swung","synod","syrup","tabby","table","taboo","tacit","tacky","taffy","taint","taken","taker","tally","talon","tamer","tango","tangy","taper","tapir","tardy","tarot","taste","tasty","tatty","taunt","tawny","teach","teary","tease","teddy","teeth","tempo","tenet","tenor","tense","tenth","tepee","tepid","terra","terse","testy","thank","theft","their","theme","there","these","theta","thick","thief","thigh","thing","think","third","thong","thorn","those","three","threw","throb","throw","thrum","thumb","thump","thyme","tiara","tibia","tidal","tiger","tight","tilde","timer","timid","tipsy","titan","tithe","title","toast","today","toddy","token","tonal","tonga","tonic","tooth","topaz","topic","torch","torso","torus","total","totem","touch","tough","towel","tower","toxic","tout","tracy","track","trade","trail","train","trait","tramp","trash","tray","treat","trend","triad","trial","tribe","trice","trick","tried","tripe","trite","troll","troop","trope","trout","trove","truce","trump","trunk","truss","trust","truth","tryst","tubal","tuber","tulip","tulle","tumor","tunic","turbo","tutor","twang","tweak","tweed","tweet","twice","twine","twirl","twist","twixt","tying","udder","ulcer","ultra","umbra","uncle","uncut","under","undid","undue","unfed","unfit","unify","union","unite","unity","unlit","unmet","unset","untie","until","unwed","unzip","upper","upset","urban","urine","usage","usher","using","usual","usurp","utile","utter","vague","valet","valid","valor","value","valve","vapid","vapor","vault","vaunt","vegan","venom","venue","verge","verse","verso","verve","vicar","video","vigil","vigor","villa","vinyl","viola","viper","viral","virus","visit","visor","vista","vital","vivid","vixen","vocal","vodka","vogue","voice","voila","vomit","voter","vouch","vowel","vying","wacky","wafer","wager","wagon","waist","waive","waltz","warty","waste","watch","water","waver","waxen","weary","weave","wedge","weedy","weigh","weird","welch","welsh","wench","whack","whale","wharf","wheat","wheel","whelp","where","which","whiff","while","whine","whiny","whirl","whisk","white","whole","whoop","whose","widen","wider","widow","width","wield","wight","willy","wimpy","wince","winch","windy","wiser","wispy","witch","witty","woken","woman","women","woody","wooer","wooly","woozy","wordy","world","worry","worse","worst","worth","would","wound","woven","wrack","wrath","wreak","wreck","wrest","wring","wrist","write","wrong","wrote","wrung","wryly","yacht","yearn","yeast","yield","young","youth","zebra","zesty","zonal"
+    ];
+
+    // Advanced Wordle Solver with Information Theory
+    class WordleSolver {
+      constructor() {
+        this.possibleWords = [...WORD_LIST];
+        this.gameState = {
+          guesses: [],
+          feedback: [],
+          currentRow: 0
+        };
+        this.letterFrequencies = this.calculateLetterFrequencies();
+        this.positionalFrequencies = this.calculatePositionalFrequencies();
+        this.optimalStarters = ['roate', 'raise', 'soare', 'arise', 'irate', 'orate', 'stare', 'crane', 'slate'];
+      }
+
+      calculateLetterFrequencies() {
+        const frequencies = {};
+        for (let i = 97; i <= 122; i++) {
+          frequencies[String.fromCharCode(i)] = 0;
+        }
+        
+        this.possibleWords.forEach(word => {
+          for (let char of word) {
+            frequencies[char]++;
+          }
+        });
+        
+        return frequencies;
+      }
+
+      calculatePositionalFrequencies() {
+        const positional = Array(5).fill().map(() => ({}));
+        
+        // Initialize all letters to 0 for each position
+        for (let pos = 0; pos < 5; pos++) {
+          for (let i = 97; i <= 122; i++) {
+            positional[pos][String.fromCharCode(i)] = 0;
+          }
+        }
+        
+        // Count letters at each position
+        this.possibleWords.forEach(word => {
+          for (let pos = 0; pos < 5; pos++) {
+            const letter = word[pos];
+            positional[pos][letter]++;
+          }
+        });
+        
+        return positional;
+      }
+
+      getBestStartingWord() {
+        // Use optimal starting words in order of preference
+        for (let word of this.optimalStarters) {
+          if (this.possibleWords.includes(word)) {
+            return word;
+          }
+        }
+        
+        // Fallback to highest scoring word
+        return this.getHighestScoringWord(this.possibleWords);
+      }
+
+      getBestNextWord() {
+        if (this.possibleWords.length === 0) return null;
+        if (this.possibleWords.length === 1) return this.possibleWords[0];
+        if (this.gameState.guesses.length === 0) return this.getBestStartingWord();
+        
+        // If we have very few words left, prioritize actual answers
+        if (this.possibleWords.length <= 3) {
+          return this.possibleWords[0];
+        }
+        
+        // Use information theory to find the best guess
+        return this.getOptimalGuess();
+      }
+
+      getOptimalGuess() {
+        let bestWord = null;
+        let bestScore = -Infinity;
+        
+        // Consider all possible words as potential guesses
+        const allWords = [...WORD_LIST];
+        
+        for (let guess of allWords) {
+          const score = this.calculateWordScore(guess);
+          if (score > bestScore) {
+            bestScore = score;
+            bestWord = guess;
+          }
+        }
+        
+        return bestWord;
+      }
+
+      calculateWordScore(word) {
+        // Information theory score
+        const infoScore = this.calculateInformationGain(word);
+        
+        // Positional letter score
+        const posScore = this.calculatePositionalScore(word);
+        
+        // Letter frequency score
+        const freqScore = this.calculateFrequencyScore(word);
+        
+        // Weight the scores (information theory is most important)
+        return infoScore * 0.6 + posScore * 0.25 + freqScore * 0.15;
+      }
+
+      calculateInformationGain(guess) {
+        const partitions = {};
+        let totalWords = this.possibleWords.length;
+        
+        // Simulate all possible feedback patterns
+        for (let target of this.possibleWords) {
+          const feedback = this.generateFeedback(guess, target);
+          const key = feedback.join(',');
+          partitions[key] = (partitions[key] || 0) + 1;
+        }
+        
+        // Calculate entropy reduction
+        let entropy = 0;
+        for (let pattern in partitions) {
+          const probability = partitions[pattern] / totalWords;
+          if (probability > 0) {
+            entropy -= probability * Math.log2(probability);
+          }
+        }
+        
+        return entropy;
+      }
+
+      calculatePositionalScore(word) {
+        let score = 0;
+        for (let pos = 0; pos < 5; pos++) {
+          const letter = word[pos];
+          const frequency = this.positionalFrequencies[pos][letter] || 0;
+          score += frequency;
+        }
+        return score;
+      }
+
+      calculateFrequencyScore(word) {
+        let score = 0;
+        const usedLetters = new Set();
+        
+        for (let char of word) {
+          if (!usedLetters.has(char)) {
+            score += this.letterFrequencies[char] || 0;
+            usedLetters.add(char);
+          }
+        }
+        
+        return score;
+      }
+
+      getHighestScoringWord(words) {
+        let bestWord = words[0];
+        let bestScore = -Infinity;
+        
+        for (let word of words) {
+          const score = this.calculatePositionalScore(word) + this.calculateFrequencyScore(word);
+          if (score > bestScore) {
+            bestScore = score;
+            bestWord = word;
+          }
+        }
+        
+        return bestWord;
+      }
+
+      generateFeedback(guess, target) {
+        const feedback = ['gray', 'gray', 'gray', 'gray', 'gray'];
+        const targetLetters = target.split('');
+        const guessLetters = guess.split('');
+        
+        // First pass: mark greens
+        for (let i = 0; i < 5; i++) {
+          if (guessLetters[i] === targetLetters[i]) {
+            feedback[i] = 'green';
+            targetLetters[i] = null;
+          }
+        }
+        
+        // Second pass: mark yellows
+        for (let i = 0; i < 5; i++) {
+          if (feedback[i] !== 'green') {
+            const letterIndex = targetLetters.indexOf(guessLetters[i]);
+            if (letterIndex !== -1) {
+              feedback[i] = 'yellow';
+              targetLetters[letterIndex] = null;
+            }
+          }
+        }
+        
+        return feedback;
+      }
+
+      processFeedback(guess, feedback) {
+        this.gameState.guesses.push(guess);
+        this.gameState.feedback.push([...feedback]);
+        this.gameState.currentRow++;
+        
+        this.possibleWords = this.possibleWords.filter(word => {
+          return this.isWordCompatible(word, guess, feedback);
+        });
+        
+        this.letterFrequencies = this.calculateLetterFrequencies();
+        this.positionalFrequencies = this.calculatePositionalFrequencies();
+      }
+
+      isWordCompatible(word, guess, feedback) {
+        const wordLetters = word.split('');
+        const guessLetters = guess.split('');
+        
+        // Check greens first
+        for (let i = 0; i < 5; i++) {
+          if (feedback[i] === 'green' && wordLetters[i] !== guessLetters[i]) {
+            return false;
+          }
+        }
+        
+        // Count letters in the word
+        const wordLetterCounts = {};
+        for (let i = 0; i < 5; i++) {
+          wordLetterCounts[wordLetters[i]] = (wordLetterCounts[wordLetters[i]] || 0) + 1;
+        }
+        
+        // Count letters in the guess
+        const guessLetterCounts = {};
+        for (let i = 0; i < 5; i++) {
+          guessLetterCounts[guessLetters[i]] = (guessLetterCounts[guessLetters[i]] || 0) + 1;
+        }
+        
+        // Check yellows and grays
+        for (let i = 0; i < 5; i++) {
+          const guessLetter = guessLetters[i];
+          
+          if (feedback[i] === 'yellow') {
+            // Letter must be in word but not at this position
+            if (wordLetters[i] === guessLetter) {
+              return false;
+            }
+            if (!wordLetterCounts[guessLetter]) {
+              return false;
+            }
+          } else if (feedback[i] === 'gray') {
+            // Count how many of this letter we need based on greens and yellows
+            let neededCount = 0;
+            for (let j = 0; j < 5; j++) {
+              if (guessLetters[j] === guessLetter && (feedback[j] === 'green' || feedback[j] === 'yellow')) {
+                neededCount++;
+              }
+            }
+            
+            // If we have more of this letter in the word than needed, it's invalid
+            if (wordLetterCounts[guessLetter] > neededCount) {
+              return false;
+            }
+          }
+        }
+        
+        return true;
+      }
+
+      reset() {
+        this.possibleWords = [...WORD_LIST];
+        this.gameState = {
+          guesses: [],
+          feedback: [],
+          currentRow: 0
+        };
+        this.letterFrequencies = this.calculateLetterFrequencies();
+        this.positionalFrequencies = this.calculatePositionalFrequencies();
+      }
+
+      getStats() {
+        return {
+          possibleWords: this.possibleWords.length,
+          totalWords: WORD_LIST.length
+        };
+      }
+    }
+
+    // Global solver instance
+    let solver = new WordleSolver();
+
+    // Initialize the game board
+    function initializeGameBoard() {
+      console.log('Initializing game board...');
+      const gameBoard = document.getElementById('game-board');
+      if (!gameBoard) {
+        console.error('Game board element not found!');
+        return;
+      }
+      
+      gameBoard.innerHTML = '';
+      
+      for (let row = 0; row < 6; row++) {
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'tile-container';
+        rowDiv.id = `row-${row}`;
+        
+        for (let col = 0; col < 5; col++) {
+          const tile = document.createElement('div');
+          tile.className = 'tile';
+          tile.id = `tile-${row}-${col}`;
+          tile.dataset.row = row;
+          tile.dataset.col = col;
+          
+          tile.addEventListener('click', function() {
+            cycleTileColor(this);
+          });
+          
+          rowDiv.appendChild(tile);
+        }
+        
+        gameBoard.appendChild(rowDiv);
+      }
+      console.log('Game board initialized successfully');
+    }
+
+    // Cycle through tile colors
+    function cycleTileColor(tile) {
+      console.log('Cycling tile color:', tile.id);
+      const colors = ['gray', 'yellow', 'green'];
+      const currentColor = tile.className.includes('gray') ? 'gray' : 
+                          tile.className.includes('yellow') ? 'yellow' : 
+                          tile.className.includes('green') ? 'green' : 'gray';
+      
+      tile.classList.remove('gray', 'yellow', 'green');
+      
+      const currentIndex = colors.indexOf(currentColor);
+      const nextIndex = (currentIndex + 1) % colors.length;
+      tile.classList.add(colors[nextIndex]);
+      
+      updateSuggestion();
+    }
+
+    // Update the suggestion
+    function updateSuggestion() {
+      console.log('Updating suggestion...');
+      const suggestionText = document.getElementById('suggestion-text');
+      const wordsRemaining = document.getElementById('words-remaining');
+      
+      if (!suggestionText || !wordsRemaining) {
+        console.error('Suggestion elements not found!');
+        return;
+      }
+      
+      solver.reset();
+      
+      for (let row = 0; row < 6; row++) {
+        const rowDiv = document.getElementById(`row-${row}`);
+        if (!rowDiv) continue;
+        
+        const tiles = rowDiv.querySelectorAll('.tile');
+        let word = '';
+        let feedback = [];
+        let isComplete = true;
+        
+        for (let col = 0; col < 5; col++) {
+          const tile = tiles[col];
+          const letter = tile.textContent.toLowerCase();
+          
+          if (!letter) {
+            isComplete = false;
+            break;
+          }
+          
+          word += letter;
+          
+          let color = 'gray';
+          if (tile.classList.contains('yellow')) color = 'yellow';
+          else if (tile.classList.contains('green')) color = 'green';
+          
+          feedback.push(color);
+        }
+        
+        // Only process row if at least one tile is yellow or green
+        const hasFeedback = Array.from(tiles).some(tile => tile.classList.contains('yellow') || tile.classList.contains('green'));
+        if (isComplete && word.length === 5 && hasFeedback) {
+          console.log('Processing word:', word, 'with feedback:', feedback);
+          solver.processFeedback(word, feedback);
+        }
+      }
+      
+             const bestWord = solver.getBestNextWord();
+       const stats = solver.getStats();
+       
+       if (bestWord) {
+         if (stats.possibleWords === 1) {
+           // Congratulations! We found the word!
+           suggestionText.textContent = '🎉 ' + bestWord.toUpperCase() + ' 🎉';
+           suggestionText.style.color = '#22c55e'; // Green color
+           suggestionText.style.fontWeight = 'bold';
+           console.log('🎉 CONGRATULATIONS! The word is:', bestWord);
+         } else {
+           suggestionText.textContent = bestWord.toUpperCase();
+           suggestionText.style.color = ''; // Reset to default
+           suggestionText.style.fontWeight = '';
+           console.log('Best word:', bestWord);
+         }
+       } else {
+         suggestionText.textContent = 'NO WORDS LEFT';
+         suggestionText.style.color = ''; // Reset to default
+         suggestionText.style.fontWeight = '';
+         console.log('No words left');
+       }
+       
+       wordsRemaining.textContent = stats.possibleWords;
+       console.log('Words remaining:', stats.possibleWords);
+       
+       // Debug: show possible words when there are few remaining
+       if (stats.possibleWords > 0 && stats.possibleWords <= 10) {
+         console.log('Possible words:', solver.possibleWords);
+       }
+
+       // Check for a fully green row and show congrats popup
+       for (let row = 0; row < 6; row++) {
+         const rowDiv = document.getElementById(`row-${row}`);
+         if (!rowDiv) continue;
+         const tiles = rowDiv.querySelectorAll('.tile');
+         // Only check filled rows
+         if (Array.from(tiles).every(tile => tile.textContent)) {
+           if (Array.from(tiles).every(tile => tile.classList.contains('green'))) {
+             if (!window._congratsShown) {
+               window._congratsShown = true;
+               alert('🎉 Congratulations! You solved it! 🎉');
+             }
+           }
+         }
+       }
+    }
+
+    // Handle word input
+    function handleWordInput() {
+      console.log('Setting up word input handlers...');
+      const input = document.getElementById('guess-input');
+      const submitButton = document.getElementById('submit-button');
+      
+      if (!input || !submitButton) {
+        console.error('Input elements not found!');
+        return;
+      }
+      
+      input.addEventListener('input', function() {
+        this.value = this.value.toLowerCase().replace(/[^a-z]/g, '');
+        if (this.value.length === 5) {
+          submitButton.disabled = false;
+        } else {
+          submitButton.disabled = true;
+        }
+      });
+      
+      input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && this.value.length === 5) {
+          submitWord();
+        }
+      });
+      
+      submitButton.addEventListener('click', submitWord);
+      console.log('Word input handlers set up successfully');
+    }
+
+    // Submit a word to the board
+    function submitWord() {
+      console.log('Submitting word...');
+      const input = document.getElementById('guess-input');
+      const word = input.value.toLowerCase();
+      
+      if (word.length !== 5 || !WORD_LIST.includes(word)) {
+        alert('Please enter a valid 5-letter word!');
+        return;
+      }
+      
+      let targetRow = -1;
+      for (let row = 0; row < 6; row++) {
+        const rowDiv = document.getElementById(`row-${row}`);
+        if (!rowDiv) continue;
+        
+        const tiles = rowDiv.querySelectorAll('.tile');
+        let isEmpty = true;
+        
+        for (let col = 0; col < 5; col++) {
+          if (tiles[col].textContent) {
+            isEmpty = false;
+            break;
+          }
+        }
+        
+        if (isEmpty) {
+          targetRow = row;
+          break;
+        }
+      }
+      
+      if (targetRow === -1) {
+        alert('Board is full!');
+        return;
+      }
+      
+      const rowDiv = document.getElementById(`row-${targetRow}`);
+      const tiles = rowDiv.querySelectorAll('.tile');
+      
+             for (let col = 0; col < 5; col++) {
+         tiles[col].textContent = word[col].toUpperCase();
+         tiles[col].classList.add('filled', 'gray');
+       }
+
+      input.value = '';
+      document.getElementById('submit-button').disabled = true;
+      
+      updateSuggestion();
+      console.log('Word submitted successfully:', word);
+    }
+
+    // Reset the game
+    function resetGame() {
+      console.log('Setting up reset handler...');
+      const resetButton = document.getElementById('reset-button');
+      if (!resetButton) {
+        console.error('Reset button not found!');
+        return;
+      }
+      
+      resetButton.addEventListener('click', function() {
+        console.log('Resetting game...');
+        for (let row = 0; row < 6; row++) {
+          const rowDiv = document.getElementById(`row-${row}`);
+          if (!rowDiv) continue;
+          
+          const tiles = rowDiv.querySelectorAll('.tile');
+          for (let col = 0; col < 5; col++) {
+            tiles[col].textContent = '';
+            tiles[col].classList.remove('filled', 'gray', 'yellow', 'green');
+          }
+        }
+        
+        solver.reset();
+        updateSuggestion();
+        
+        const input = document.getElementById('guess-input');
+        if (input) {
+          input.value = '';
+          document.getElementById('submit-button').disabled = true;
+        }
+        console.log('Game reset successfully');
+      });
+      console.log('Reset handler set up successfully');
+    }
+
+    // Initialize everything when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM loaded, initializing solver...');
+      try {
+        initializeGameBoard();
+        handleWordInput();
+        resetGame();
+        initializeSimulation();
+        updateSuggestion();
+        console.log('Solver initialized successfully');
+      } catch (error) {
+        console.error('Error initializing solver:', error);
+      }
+    });
+
     // Hamburger Navigation Functionality
     function toggleNav() {
       const navMenu = document.getElementById('navMenu');
@@ -1208,7 +1776,6 @@
       navOverlay.classList.toggle('active');
       hamburgerBtn.classList.toggle('active');
       
-      // Prevent body scroll when menu is open
       if (navMenu.classList.contains('active')) {
         document.body.style.overflow = 'hidden';
       } else {
@@ -1241,7 +1808,7 @@
       }
     });
 
-    // Close menu on window resize (for mobile orientation changes)
+    // Close menu on window resize
     window.addEventListener('resize', () => {
       if (window.innerWidth > 768) {
         closeNav();
@@ -1258,7 +1825,7 @@
       event.preventDefault();
       const warningOverlay = document.getElementById('warningOverlay');
       warningOverlay.classList.add('active');
-      closeNav(); // Close the navigation menu
+      closeNav();
     }
 
     function hideAdvancedSolverWarning() {
@@ -1284,6 +1851,234 @@
         hideAdvancedSolverWarning();
       }
     });
+
+    // Simulation functionality
+    let simulationStats = {
+      gamesPlayed: 0,
+      totalGuesses: 0,
+      successfulGames: 0,
+      guessDistribution: {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 'fail': 0}
+    };
+
+    let chart = null;
+
+    // Initialize simulation controls
+    function initializeSimulation() {
+      const run1Button = document.getElementById('run-1-sim');
+      const run10Button = document.getElementById('run-10-sim');
+      
+      if (run1Button) {
+        run1Button.addEventListener('click', () => runSimulation(1));
+      }
+      
+      if (run10Button) {
+        run10Button.addEventListener('click', () => runSimulation(10));
+      }
+      
+      initializeChart();
+    }
+
+    // Run simulation(s)
+    function runSimulation(count) {
+      const buttons = document.querySelectorAll('#run-1-sim, #run-10-sim');
+      buttons.forEach(btn => btn.disabled = true);
+      
+      const resultDiv = document.getElementById('last-sim-result');
+      resultDiv.textContent = `Running ${count} simulation${count > 1 ? 's' : ''}...`;
+      
+      // Run simulations asynchronously to avoid blocking UI
+      setTimeout(() => {
+        for (let i = 0; i < count; i++) {
+          runSingleSimulation();
+        }
+        
+        updateSimulationStats();
+        updateChart();
+        
+        resultDiv.textContent = `Completed ${count} simulation${count > 1 ? 's' : ''}. Average: ${(simulationStats.totalGuesses / simulationStats.gamesPlayed).toFixed(2)} guesses`;
+        
+        buttons.forEach(btn => btn.disabled = false);
+      }, 100);
+    }
+
+    // Run a single simulation
+    function runSingleSimulation() {
+      // Pick a random target word
+      const targetWord = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
+      
+      // Create a fresh solver instance for this simulation
+      const simSolver = new WordleSolver();
+      
+      let guesses = 0;
+      const maxGuesses = 6;
+      
+      while (guesses < maxGuesses) {
+        guesses++;
+        
+        // Get the solver's suggestion
+        const suggestion = simSolver.getBestNextWord();
+        if (!suggestion) break;
+        
+        // Generate feedback for this guess
+        const feedback = generateFeedback(suggestion, targetWord);
+        
+        // Check if we won
+        if (feedback.every(f => f === 'green')) {
+          simulationStats.successfulGames++;
+          simulationStats.guessDistribution[guesses]++;
+          break;
+        }
+        
+        // Process feedback and continue
+        simSolver.processFeedback(suggestion, feedback);
+      }
+      
+      // If we didn't win, count as failure
+      if (guesses === maxGuesses && !simSolver.possibleWords.includes(targetWord)) {
+        simulationStats.guessDistribution['fail']++;
+      }
+      
+      simulationStats.gamesPlayed++;
+      simulationStats.totalGuesses += guesses;
+    }
+
+    // Generate feedback for a guess against a target word
+    function generateFeedback(guess, target) {
+      const feedback = ['gray', 'gray', 'gray', 'gray', 'gray'];
+      const targetLetters = target.split('');
+      const guessLetters = guess.split('');
+      
+      // First pass: mark greens
+      for (let i = 0; i < 5; i++) {
+        if (guessLetters[i] === targetLetters[i]) {
+          feedback[i] = 'green';
+          targetLetters[i] = null; // Mark as used
+        }
+      }
+      
+      // Second pass: mark yellows
+      for (let i = 0; i < 5; i++) {
+        if (feedback[i] !== 'green') {
+          const letterIndex = targetLetters.indexOf(guessLetters[i]);
+          if (letterIndex !== -1) {
+            feedback[i] = 'yellow';
+            targetLetters[letterIndex] = null; // Mark as used
+          }
+        }
+      }
+      
+      return feedback;
+    }
+
+    // Update simulation statistics display
+    function updateSimulationStats() {
+      const gamesPlayedDiv = document.getElementById('games-played');
+      const averageGuessesDiv = document.getElementById('average-guesses');
+      const successRateDiv = document.getElementById('success-rate');
+      
+      if (gamesPlayedDiv) {
+        gamesPlayedDiv.textContent = simulationStats.gamesPlayed;
+      }
+      
+      if (averageGuessesDiv) {
+        if (simulationStats.gamesPlayed > 0) {
+          const avg = (simulationStats.totalGuesses / simulationStats.gamesPlayed).toFixed(2);
+          averageGuessesDiv.textContent = avg;
+        } else {
+          averageGuessesDiv.textContent = '-';
+        }
+      }
+      
+      if (successRateDiv) {
+        if (simulationStats.gamesPlayed > 0) {
+          const rate = ((simulationStats.successfulGames / simulationStats.gamesPlayed) * 100).toFixed(1);
+          successRateDiv.textContent = rate + '%';
+        } else {
+          successRateDiv.textContent = '-';
+        }
+      }
+    }
+
+    // Initialize the chart
+    function initializeChart() {
+      const ctx = document.getElementById('simulation-chart');
+      if (!ctx) return;
+      
+      chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['1', '2', '3', '4', '5', '6', 'Fail'],
+          datasets: [{
+            label: 'Games',
+            data: [0, 0, 0, 0, 0, 0, 0],
+            backgroundColor: [
+              '#22c55e', // Green for 1
+              '#22c55e', // Green for 2
+              '#22c55e', // Green for 3
+              '#eab308', // Yellow for 4
+              '#eab308', // Yellow for 5
+              '#eab308', // Yellow for 6
+              '#ef4444'  // Red for fail
+            ],
+            borderColor: [
+              '#16a34a',
+              '#16a34a',
+              '#16a34a',
+              '#ca8a04',
+              '#ca8a04',
+              '#ca8a04',
+              '#dc2626'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Number of Games'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Number of Guesses'
+              }
+            }
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: 'Guess Distribution'
+            },
+            legend: {
+              display: false
+            }
+          }
+        }
+      });
+    }
+
+    // Update the chart with current data
+    function updateChart() {
+      if (!chart) return;
+      
+      chart.data.datasets[0].data = [
+        simulationStats.guessDistribution[1] || 0,
+        simulationStats.guessDistribution[2] || 0,
+        simulationStats.guessDistribution[3] || 0,
+        simulationStats.guessDistribution[4] || 0,
+        simulationStats.guessDistribution[5] || 0,
+        simulationStats.guessDistribution[6] || 0,
+        simulationStats.guessDistribution['fail'] || 0
+      ];
+      
+      chart.update();
+    }
   </script>
 </body>
 </html> 
